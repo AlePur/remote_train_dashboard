@@ -367,7 +367,9 @@ function renderTensorboardCharts(data) {
                         data: data[tag].values,
                         borderColor: getColorForTag(tag),
                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 0
                     }]
                 },
                 options: {
@@ -475,7 +477,7 @@ function extractTimestamp(filename) {
 }
 
 // Display images for a specific step
-function displayImagesForStep(step, images) {
+function displayImagesForStep(step, images, batchNumber = 1) {
     const imageGrid = document.getElementById('imageGrid');
     imageGrid.innerHTML = '';
     
@@ -488,7 +490,13 @@ function displayImagesForStep(step, images) {
         return timestampA.localeCompare(timestampB);
     });
     
-    sortedImages.forEach(imagePath => {
+    // Calculate batch indices
+    const batchSize = 3;
+    const startIndex = (batchNumber - 1) * batchSize;
+    const endIndex = startIndex + batchSize;
+    const batchImages = sortedImages.slice(startIndex, endIndex);
+    
+    batchImages.forEach(imagePath => {
         const imageItem = document.createElement('div');
         imageItem.className = 'image-item';
         imageItem.innerHTML = `
@@ -517,17 +525,65 @@ async function viewImages() {
         steps.forEach(step => {
             const stepItem = document.createElement('div');
             stepItem.className = 'step-item';
-            stepItem.textContent = `Step ${step} (${groupedImages[step].length})`;
-            stepItem.onclick = () => {
+            
+            const imageCount = groupedImages[step].length;
+            const batchCount = Math.ceil(imageCount / 3);
+            
+            // Create step label
+            const stepLabel = document.createElement('div');
+            stepLabel.className = 'step-label';
+            stepLabel.textContent = `Step ${step} (${imageCount})`;
+            stepLabel.onclick = () => {
                 // Remove active class from all steps
                 document.querySelectorAll('.step-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 // Add active class to clicked step
                 stepItem.classList.add('active');
-                // Display images for this step
-                displayImagesForStep(step, groupedImages[step]);
+                // Display images for this step (batch 1 by default)
+                displayImagesForStep(step, groupedImages[step], 1);
+                // Highlight first batch button
+                const batchButtons = stepItem.querySelectorAll('.batch-btn');
+                batchButtons.forEach(btn => btn.classList.remove('active'));
+                if (batchButtons.length > 0) {
+                    batchButtons[0].classList.add('active');
+                }
             };
+            stepItem.appendChild(stepLabel);
+            
+            // Add batch buttons if more than 3 images
+            if (imageCount > 3) {
+                const batchContainer = document.createElement('div');
+                batchContainer.className = 'batch-container';
+                
+                for (let i = 1; i <= batchCount; i++) {
+                    const batchBtn = document.createElement('button');
+                    batchBtn.className = 'batch-btn';
+                    if (i === 1) batchBtn.classList.add('active');
+                    batchBtn.textContent = i;
+                    batchBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        // Remove active class from all steps
+                        document.querySelectorAll('.step-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        // Add active class to this step
+                        stepItem.classList.add('active');
+                        // Remove active class from all batch buttons in this step
+                        stepItem.querySelectorAll('.batch-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        // Add active class to clicked batch button
+                        batchBtn.classList.add('active');
+                        // Display images for this batch
+                        displayImagesForStep(step, groupedImages[step], i);
+                    };
+                    batchContainer.appendChild(batchBtn);
+                }
+                
+                stepItem.appendChild(batchContainer);
+            }
+            
             stepList.appendChild(stepItem);
         });
         
@@ -535,11 +591,11 @@ async function viewImages() {
         if (steps.length > 0) {
             const firstStep = steps[0];
             stepList.firstChild.classList.add('active');
-            displayImagesForStep(firstStep, groupedImages[firstStep]);
+            displayImagesForStep(firstStep, groupedImages[firstStep], 1);
         }
         
         document.getElementById('imageGallery').style.display = 'block';
-} catch (error) {
+    } catch (error) {
         console.error('Error loading images:', error);
         logToConsole(`Error: ${error.message}`, 'error');
     }

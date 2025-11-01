@@ -373,10 +373,12 @@ canvas {
     background: #0d1117;
     border: 2px solid #6e7681;
     border-radius: 0;
-    cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.8em;
     color: #8b949e;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .step-item:hover {
@@ -388,6 +390,55 @@ canvas {
 .step-item.active {
     background: #3d5a80;
     border: 2px solid #6e7681;
+    color: #ffffff;
+}
+
+.step-label {
+    cursor: pointer;
+    width: 100%;
+}
+
+.batch-container {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.batch-btn {
+    padding: 4px 10px;
+    background: #161b22;
+    border: 2px solid #6e7681;
+    border-radius: 0;
+    color: #8b949e;
+    font-size: 0.75em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-width: 32px;
+}
+
+.batch-btn:hover {
+    background: #21262d;
+    border-color: #8b949e;
+    color: #c9d1d9;
+}
+
+.batch-btn.active {
+    background: #5a7d9a;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.step-item.active .batch-btn {
+    background: #21262d;
+    border-color: #8b949e;
+    color: #c9d1d9;
+}
+
+.step-item.active .batch-btn.active {
+    background: #5a7d9a;
+    border-color: #ffffff;
     color: #ffffff;
 }
 
