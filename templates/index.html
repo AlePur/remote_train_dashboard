@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Training Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="control-panel">
+            <div class="section">
+                <h2>TensorBoard Experiments</h2>
+                <button id="loadExperiments" class="btn btn-primary">Load Experiments</button>
+                <select id="experimentSelect" class="select-box" disabled>
+                    <option value="">Select an experiment...</option>
+                </select>
+            </div>
+
+            <div class="section">
+                <h2>Monitoring Controls <span id="monitoringStatus" class="status">Stopped</span> </h2>
+                <div style="display: flex;">
+                    <button id="startMonitoring" class="btn btn-success" disabled>Start Monitoring</button>
+                    <button id="stopMonitoring" class="btn btn-danger" disabled>Stop Monitoring</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Image Samples</h2>
+                <button id="syncImages" class="btn btn-primary">Sync Images</button>
+                <button id="viewImages" class="btn btn-secondary" disabled>View Images</button>
+                <button id="syncOutput" class="btn btn-primary">Sync Output</button>
+                <button id="viewOutput" class="btn btn-secondary" disabled>View Output</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="charts-container">
+                <div class="chart-section">
+                    <h2>GPU Temperature</h2>
+                    <canvas id="tempChart"></canvas>
+                </div>
+
+                <div class="chart-section">
+                    <h2>GPU Power Usage</h2>
+                    <canvas id="powerChart"></canvas>
+                </div>
+
+                <div class="chart-section">
+                    <h2>GPU Memory Usage</h2>
+                    <canvas id="memoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="console-container">
+                <div class="console-header">
+                    <h2>Console Output</h2>
+                    <button id="clearConsole" class="btn btn-small">Clear</button>
+                </div>
+                <div id="console" class="console"></div>
+            </div>
+        </div>
+
+        <div class="chart-section full-width" id="tensorboardSection">
+            <h2>TensorBoard Metrics</h2>
+            <div id="tensorboardCharts"></div>
+        </div>
+
+        <div id="imageGallery" class="image-gallery" style="display: none;">
+            <div class="gallery-header">
+                <h2>Image Gallery</h2>
+                <button id="closeGallery" class="btn btn-secondary">Close</button>
+            </div>
+            <div class="gallery-content">
+                <div class="step-list-container">
+                    <h3>Steps</h3>
+                    <div id="stepList" class="step-list"></div>
+                </div>
+                <div id="imageGrid" class="image-grid"></div>
+            </div>
+        </div>
+
+        <div id="outputViewer" class="output-viewer" style="display: none;">
+            <div class="output-header">
+                <h2>Main Thread Output</h2>
+                <button id="closeOutput" class="btn btn-secondary">Close</button>
+            </div>
+            <div class="output-content">
+                <pre id="outputText" class="output-text"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

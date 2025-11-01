@@ -1,0 +1,4 @@
+venv
+static/images
+static/output.txt
+.env

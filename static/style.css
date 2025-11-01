@@ -1,0 +1,565 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    background: #0d1117;
+    min-height: 100vh;
+    padding: 20px;
+    color: #c9d1d9;
+}
+
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    background: #161b22;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+    padding: 24px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #21262d;
+}
+
+header h1 {
+    font-size: 1.5em;
+    color: #5a7d9a;
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #8b949e;
+    font-size: 0.85em;
+}
+
+.control-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.section {
+    background: #0d1117;
+    padding: 16px;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+}
+
+.section h2 {
+    font-size: 0.9em;
+    margin-bottom: 12px;
+    color: #c9d1d9;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-family: inherit;
+    background: #21262d;
+    color: #c9d1d9;
+}
+
+.btn:hover:not(:disabled) {
+    background: #30363d;
+    border-color: #ffffff;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #3d5a80;
+    border: 3px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #4a6a94;
+    border: 3px solid #ffffff;
+}
+
+.btn-success {
+    background: #4a6741;
+    border: 3px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #5a7751;
+    border: 3px solid #ffffff;
+}
+
+.btn-danger {
+    background: #8b4545;
+    border: 3px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #9b5555;
+    border: 3px solid #ffffff;
+}
+
+.btn-secondary {
+    background: #21262d;
+    border: 3px solid #ffffff;
+    color: #c9d1d9;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #30363d;
+    border: 3px solid #ffffff;
+}
+
+.btn-small {
+    padding: 4px 10px;
+    font-size: 0.75em;
+}
+
+.select-box {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #6e7681;
+    border-radius: 0;
+    font-size: 0.85em;
+    margin-top: 8px;
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: inherit;
+}
+
+.select-box:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.select-box:focus {
+    outline: none;
+    border-color: #8b949e;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 0;
+    font-weight: 500;
+    font-size: 0.75em;
+    margin-left: 8px;
+    background: #8b4545;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status.active {
+    background: #4a6741;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 16px;
+}
+
+.chart-section {
+    background: #0d1117;
+    padding: 16px;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+}
+
+.chart-section.full-width {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+#tensorboardSection {
+    margin-top: 15px;
+}
+
+#tensorboardCharts {
+    width: 100%;
+}
+
+.chart-section h2 {
+    font-size: 0.85em;
+    margin-bottom: 12px;
+    color: #c9d1d9;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+canvas {
+    max-height: 250px;
+}
+
+.console-container {
+    background: #0d1117;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 600px;
+}
+
+.console-header {
+    background: #161b22;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #21262d;
+}
+
+.console-header h2 {
+    font-size: 0.85em;
+    color: #8b949e;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.console {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-size: 0.8em;
+    line-height: 1.6;
+    color: #8b949e;
+    background: #010409;
+}
+
+.console-line {
+    margin-bottom: 2px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.console-line.info {
+    color: #5a7d9a;
+}
+
+.console-line.success {
+    color: #4a6741;
+}
+
+.console-line.error {
+    color: #8b4545;
+}
+
+.console-line.warning {
+    color: #9a8050;
+}
+
+.console-line .timestamp {
+    color: #6e7681;
+    margin-right: 8px;
+}
+
+.console::-webkit-scrollbar {
+    width: 10px;
+}
+
+.console::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+
+.console::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 0;
+}
+
+.console::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+.image-gallery,
+.output-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(1, 4, 9, 0.95);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.gallery-header,
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #161b22;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+}
+
+.gallery-header h2,
+.output-header h2 {
+    color: #c9d1d9;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.gallery-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+    height: calc(100vh - 140px);
+}
+
+.step-list-container {
+    background: #161b22;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.step-list-container h3 {
+    font-size: 0.85em;
+    color: #8b949e;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.step-item {
+    padding: 10px 12px;
+    background: #0d1117;
+    border: 2px solid #6e7681;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.8em;
+    color: #8b949e;
+}
+
+.step-item:hover {
+    background: #161b22;
+    border-color: #8b949e;
+    color: #c9d1d9;
+}
+
+.step-item.active {
+    background: #3d5a80;
+    border: 2px solid #6e7681;
+    color: #ffffff;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    overflow-y: auto;
+    align-content: start;
+}
+
+.image-item {
+    background: #161b22;
+    border-radius: 0;
+    overflow: hidden;
+    border: 2px solid #6e7681;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-item:hover {
+    transform: translateY(-2px);
+    border-color: #8b949e;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    background: #0d1117;
+}
+
+.image-item .image-name {
+    padding: 10px;
+    font-size: 0.75em;
+    color: #8b949e;
+    text-align: center;
+    word-break: break-all;
+    background: #161b22;
+}
+
+#tensorboardCharts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    min-height: 200px;
+}
+
+#tensorboardCharts:empty::before {
+    content: 'No TensorBoard metrics loaded';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    background: #21262d;
+    border-radius: 0;
+    color: #6e7681;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-height: 200px;
+}
+
+.tensorboard-chart {
+    background: #161b22;
+    padding: 14px;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+}
+
+.tensorboard-chart h3 {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    color: #8b949e;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.output-content {
+    background: #161b22;
+    border-radius: 0;
+    border: 2px solid #6e7681;
+    padding: 20px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.output-text {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: #c9d1d9;
+    background: #0d1117;
+    padding: 16px;
+    border-radius: 0;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.output-text::-webkit-scrollbar {
+    width: 10px;
+}
+
+.output-text::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+
+.output-text::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 0;
+}
+
+.output-text::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .console-container {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    header h1 {
+        font-size: 1.2em;
+    }
+
+    .control-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-content {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .step-list-container {
+        max-height: 200px;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        height: auto;
+    }
+
+    #tensorboardCharts {
+        grid-template-columns: 1fr;
+    }
+    
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+}
